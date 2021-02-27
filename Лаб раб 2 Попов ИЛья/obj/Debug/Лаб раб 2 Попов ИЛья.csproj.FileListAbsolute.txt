@@ -1,0 +1,7 @@
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\obj\Debug\Лаб раб 2 Попов ИЛья.csprojAssemblyReference.cache
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\obj\Debug\Лаб раб 2 Попов ИЛья.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\bin\Debug\Лаб раб 2 Попов ИЛья.exe.config
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\bin\Debug\Лаб раб 2 Попов ИЛья.exe
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\bin\Debug\Лаб раб 2 Попов ИЛья.pdb
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\obj\Debug\Лаб раб 2 Попов ИЛья.exe
+C:\Users\User\source\repos\Лаб раб 2 Попов ИЛья\Лаб раб 2 Попов ИЛья\obj\Debug\Лаб раб 2 Попов ИЛья.pdb
