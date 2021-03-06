@@ -4,112 +4,319 @@ using System.Linq;
 using System.Text;
 
 namespace oap
-
-
 {
-    // про классы мы пока не говорили...
+
     class Program
     {
         // точка входа в программу
         static void Main(string[] args)
         {
-            var MassivDate = new List<DateTime>() {
-new DateTime(2021, 1, 15),
-new DateTime(2021, 2, 20),
-new DateTime(2011, 5, 2),
-new DateTime(2015, 5, 1),
-new DateTime(2013, 5, 3),
-new DateTime(2020, 1, 17)};
-            var result = new Dictionary<int, int>();
-            foreach (DateTime TekushayaData in MassivDate)
+
+
+            //ExceptionTest();
+            //ExceptionTest2();
+            //ExceptionTest3();
+            //ExceptionTest4();
+            //ExceptionTest5();
+            //ExceptionTest6();
+            //ExceptionTest7();
+            //ExceptionTest8();
+            //ExceptionTest9();
+            //ExceptionTest10();
+            //ExceptionTest11();
+            //ExceptionTest12();
+            //ExceptionTest13();
+            //ExceptionTest14();
+            //ExceptionTest15();
+            //ExceptionTest16();
+            //ExceptionTest17();
+            //ExceptionTest18();
+            ExceptionTest19();
+            Console.ReadKey();
+        }
+        static void ExceptionTest()
+        {
+            int x = 5;
+            int y = x / 0;
+            Console.WriteLine($"Результат: {y}");
+            Console.WriteLine("Конец программы");
+            Console.Read();
+        }
+        static void ExceptionTest2()
+        {
+            try
             {
-                if (result.ContainsKey(TekushayaData.Month))
-                {
-                    result[TekushayaData.Month] = result[TekushayaData.Month] + 1;
-                }
-                else
-                    result[TekushayaData.Month] = 1;
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
             }
-            var PopularMonth = -1;
-            var MaxCount = 0;
-            foreach (KeyValuePair<int, int> keyValue in result)
+            catch
             {
-                if (keyValue.Value > MaxCount)
-                {
-                    MaxCount = keyValue.Value;
-                    PopularMonth = keyValue.Key;
-                }
+                Console.WriteLine("Возникло исключение!");
             }
-            Console.WriteLine($"Самый популярный месяц {PopularMonth}");
-            Console.Write("Press ENTER to continue...");
-            Console.ReadLine();
+            finally
+            {
+                Console.WriteLine("Блок finally");
+            }
+            Console.WriteLine("Конец программы");
+            Console.Read();
+        }
+        static void ExceptionTest3()
+        {
+            try
+            {
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch
+            {
+                Console.WriteLine("Возникло исключение!");
+            }
+        }
+        static void ExceptionTest4()
+        {
+            Console.WriteLine("Введите число");
+            int x = Int32.Parse(Console.ReadLine());
+
+            x *= x;
+            Console.WriteLine("Квадрат числа: " + x);
+            Console.Read();
+        }
+        static void ExceptionTest5()
+        {
+            Console.WriteLine("Введите число");
+            int x;
+            string input = Console.ReadLine();
+            if (Int32.TryParse(input, out x))
+            {
+                x *= x;
+                Console.WriteLine("Квадрат числа: " + x);
+            }
+            else
+            {
+                Console.WriteLine("Некорректный ввод");
+            }
+            Console.Read();
+        }
+        static void ExceptionTest6()
+        {
+            try
+            {
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Возникло исключение DivideByZeroException");
+            }
+        }
+        static void ExceptionTest7()
+        {
+            try
+            {
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine($"Возникло исключение {ex.Message}");
+            }
+        }
+        static void ExceptionTest8()
+        {
+            int x = 1;
+            int y = 0;
+
+            try
+            {
+                int result = x / y;
+            }
+            catch (DivideByZeroException) when (y == 0 && x == 0)
+            {
+                Console.WriteLine("y не должен быть равен 0");
+            }
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        static void ExceptionTest9()
+        {
+            try
+            {
+                int x = 5;
+                int y = x / 0;
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Исключение: {ex.Message}");
+                Console.WriteLine($"Метод: {ex.TargetSite}");
+                Console.WriteLine($"Трассировка стека: {ex.StackTrace}");
+            }
+
+            Console.Read();
+        }
+        static void ExceptionTest10()
+        {
+            try
+            {
+                int[] numbers = new int[4];
+                numbers[7] = 9;     // IndexOutOfRangeException
+
+                int x = 5;
+                int y = x / 0;  // DivideByZeroException
+                Console.WriteLine($"Результат: {y}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Возникло исключение DivideByZeroException");
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            Console.Read();
+        }
+        static void ExceptionTest11()
+        {
+            try
+            {
+                object obj = "you";
+                int num = (int)obj;     // InvalidCastException
+                Console.WriteLine($"Результат: {num}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Возникло исключение DivideByZeroException");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Возникло исключение IndexOutOfRangeException");
+            }
+
+            Console.Read();
+        }
+        static void ExceptionTest12()
+        {
+            try
+            {
+                object obj = "you";
+                int num = (int)obj;     // InvalidCastException
+                Console.WriteLine($"Результат: {num}");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("Возникло исключение DivideByZeroException");
+            }
+            catch (IndexOutOfRangeException)
+            {
+                Console.WriteLine("Возникло исключение IndexOutOfRangeException");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Исключение: {ex.Message}");
+            }
+            Console.Read();
+
+        }
+        static void ExceptionTest13()
+        {
+            int? a = 42;
+            if (a is int valueOfA)
+            {
+                Console.WriteLine($"a is {valueOfA}");
+            }
+            else
+            {
+                Console.WriteLine("a does not have a value");
+            }
+        }
+        static void ExceptionTest14()
+        {
+            int? b = null;
+            if (b.HasValue)
+            {
+                Console.WriteLine($"b is {b.Value}");
+            }
+            else
+            {
+                Console.WriteLine("b does not have a value");
+            }
+        }
+        static void ExceptionTest15()
+        {
+            int? c = 7;
+            if (c != null)
+            {
+                Console.WriteLine($"c is {c.Value}");
+            }
+            else
+            {
+                Console.WriteLine("c does not have a value");
+            }
+        }
+
+        static void ExceptionTest16()
+        {
+            int? a = 28;
+            int b = a ?? -1;
+            Console.WriteLine($"b is {b}");  // output: b is 28
+
+            int? c = null;
+            int d = c ?? -1;
+            Console.WriteLine($"d is {d}");  // output: d is -1
+        }
+        static void ExceptionTest17()
+        {
+            int? a = 10;
+            Console.WriteLine($"{a} >= null is {a >= null}");
+            Console.WriteLine($"{a} < null is {a < null}");
+            Console.WriteLine($"{a} == null is {a == null}");
+            // Output:
+            // 10 >= null is False
+            // 10 < null is False
+            // 10 == null is False
+
+            int? b = null;
+            int? c = null;
+            Console.WriteLine($"null >= null is {b >= c}");
+            Console.WriteLine($"null == null is {b == c}");
+            // Output:
+            // null >= null is False
+            // null == null is True
+        }
+        static void ExceptionTest18()
+        {
+            int a = 41;
+            object aBoxed = a;
+            int? aNullable = (int?)aBoxed;
+            Console.WriteLine($"Value of aNullable: {aNullable}");
+
+            object aNullableBoxed = aNullable;
+            if (aNullableBoxed is int valueOfA)
+            {
+                Console.WriteLine($"aNullableBoxed is boxed int: {valueOfA}");
+            }
+            // Output:
+            // Value of aNullable: 41
+            // aNullableBoxed is boxed int: 41
+        }
+        static void ExceptionTest19()
+        {
+            object z = 200;
+            object t = z ?? 44;
+            Console.WriteLine(t);
         }
     }
 }
 
 
 
-/*
-Console.WriteLine("Input posledovatelnost: ");
-string Posledovatelnost = Console.ReadLine();
-var StrelkaCoint = 0;
-var strelka1 = ">>-->";
-var strelka2 = "<--<<";
-int poz = 0;
-while((poz = Posledovatelnost.IndexOf(strelka1, poz))>=0)
-{
-    StrelkaCoint++;
-    poz++;
-}
-poz = 0;
-while ((poz = Posledovatelnost.IndexOf(strelka2, poz)) >= 0)
-{
-    StrelkaCoint++;
-    poz++;
-}
-Console.WriteLine($"Количество стрелок: {StrelkaCoint}");
-*/
-/*
-DateTime date1=new DateTime(2021,02,21);
-DateTime date2=new DateTime(2026,02,25);
-Console.WriteLine(Math.Abs(date1.Subtract(date2).TotalDays));
-*/
-/*
-Console.WriteLine("Введите год: ");
-DateTime date1 = new DateTime(Convert.ToInt32(Console.ReadLine()), 1, 1);
-date1 = date1.AddDays(255);
-var DateString = date1.ToString("dd MMMM");
-Console.WriteLine($"день программиста отмечается  {DateString}");
-*/
-/*
-Console.WriteLine("Введите день: ");
-DateTime date1 = new DateTime(2021, 1, 1);
-date1 = date1.AddDays(Convert.ToInt32(Console.ReadLine())-1);
-var DateString = date1.ToString("dddd");
-var voskresenie = date1.DayOfWeek == DayOfWeek.Sunday ? 7 : (int)date1.DayOfWeek;
-Console.WriteLine($"день недели {DateString}, и номер дня недели {voskresenie}");
-*/
-
-/*
- DateTime date1 = new DateTime(2021, 06, 21);
-Console.WriteLine("Введите дату в формате дд.мм.гггг: ");
-string date2 = Console.ReadLine();
-string[] StringArray = date2.Split('.');
-var Date3 = new DateTime(Convert.ToInt32(StringArray[2]), Convert.ToInt32(StringArray[1]), Convert.ToInt32(StringArray[0]));
-var Raznitca = date1.Subtract(Date3);
-if (Raznitca.TotalDays == 0)
-{
-    Console.WriteLine("Сегодня экзамен");
-}
-else if (Raznitca.TotalDays > 0)
-    Console.WriteLine($"Экзамен будет через {Raznitca.TotalDays} дней");
-else
-    Console.WriteLine($"Экзамен был {Math.Abs(Raznitca.TotalDays)} дней назад");
-
-
-Console.Write("Press ENTER to continue...");
-Console.ReadLine();
-    */
 
 
 
