@@ -1,10 +1,31 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Serialization;
 
-namespace oap
-{
+// namespace такой же как и название проекта
+namespace oap1 { }
+
+    // про классы мы пока не говорили...
+    [Serializable]
+    [DataContract]
+    public class Student
+    {
+        [DataMember]
+        public string Name { get; set; }
+        [DataMember]
+        public DateTime BirthDay { get; set; }
+        [DataMember]
+        public string Group { get; set; }
+        public Student() { }
+    }
+
 
     class Program
     {
@@ -13,322 +34,76 @@ namespace oap
         {
 
 
-            //ExceptionTest();
-            //ExceptionTest2();
-            //ExceptionTest3();
-            //ExceptionTest4();
-            //ExceptionTest5();
-            //ExceptionTest6();
-            //ExceptionTest7();
-            //ExceptionTest8();
-            //ExceptionTest9();
-            //ExceptionTest10();
-            //ExceptionTest11();
-            //ExceptionTest12();
-            //ExceptionTest13();
-            //ExceptionTest14();
-            //ExceptionTest15();
-            //ExceptionTest16();
-            //ExceptionTest17();
-            //ExceptionTest18();
-            ExceptionTest19();
-            Console.ReadKey();
-        }
-        static void ExceptionTest()
+            static void Import()
         {
-            int x = 5;
-            int y = x / 0;
-            Console.WriteLine($"Результат: {y}");
-            Console.WriteLine("Конец программы");
-            Console.Read();
-        }
-        static void ExceptionTest2()
-        {
-            try
+            var StudentList = new List<Student>();
+            using (TextFieldParser parser = new TextFieldParser(new StringReader("Иванов Иван Иванович,01.01.2000,И-21\nПетров Петр Петрович,02.02.2002,С-21\nСидоров Сидор Сидорович,03.03.2003,И-31")))
             {
-                int x = 5;
-                int y = x / 0;
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch
-            {
-                Console.WriteLine("Возникло исключение!");
-            }
-            finally
-            {
-                Console.WriteLine("Блок finally");
-            }
-            Console.WriteLine("Конец программы");
-            Console.Read();
-        }
-        static void ExceptionTest3()
-        {
-            try
-            {
-                int x = 5;
-                int y = x / 0;
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch
-            {
-                Console.WriteLine("Возникло исключение!");
-            }
-        }
-        static void ExceptionTest4()
-        {
-            Console.WriteLine("Введите число");
-            int x = Int32.Parse(Console.ReadLine());
+                // свойство TextFieldType определяет тип полей: с разделителями или фиксированной ширины
+                parser.TextFieldType = FieldType.Delimited;
 
-            x *= x;
-            Console.WriteLine("Квадрат числа: " + x);
-            Console.Read();
-        }
-        static void ExceptionTest5()
-        {
-            Console.WriteLine("Введите число");
-            int x;
-            string input = Console.ReadLine();
-            if (Int32.TryParse(input, out x))
-            {
-                x *= x;
-                Console.WriteLine("Квадрат числа: " + x);
-            }
-            else
-            {
-                Console.WriteLine("Некорректный ввод");
-            }
-            Console.Read();
-        }
-        static void ExceptionTest6()
-        {
-            try
-            {
-                int x = 5;
-                int y = x / 0;
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch (DivideByZeroException)
-            {
-                Console.WriteLine("Возникло исключение DivideByZeroException");
-            }
-        }
-        static void ExceptionTest7()
-        {
-            try
-            {
-                int x = 5;
-                int y = x / 0;
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch (DivideByZeroException ex)
-            {
-                Console.WriteLine($"Возникло исключение {ex.Message}");
-            }
-        }
-        static void ExceptionTest8()
-        {
-            int x = 1;
-            int y = 0;
+                // можно указать произвольный разделитель
+                parser.SetDelimiters(",");
 
-            try
-            {
-                int result = x / y;
-            }
-            catch (DivideByZeroException) when (y == 0 && x == 0)
-            {
-                Console.WriteLine("y не должен быть равен 0");
-            }
-            catch (DivideByZeroException ex)
-            {
-                Console.WriteLine(ex.Message);
+                // считываем пока не дойдем до конца файла
+                while (!parser.EndOfData)
+                {
+                    //метод ReadFields разбивает исходную строку на массив строк
+                    string[] fields = parser.ReadFields();
+                    var Student1 = new Student();
+                    Student1.Name = fields[0];
+
+                    var DateParts = fields[1].Split('.');
+
+                    Student1.BirthDay = new DateTime(Convert.ToInt32(DateParts[2]), Convert.ToInt32(DateParts[1]), Convert.ToInt32(DateParts[0]));
+
+                    Student1.Group = fields[2];
+                    StudentList.Add(Student1);
+
+                }
+                XmlSerializer formatter = new XmlSerializer(typeof(Student[]));
+                using (FileStream fs = new FileStream("Students.xml", FileMode.OpenOrCreate))
+                {
+                    formatter.Serialize(fs, StudentList.ToArray());
+
+                }
             }
         }
-        static void ExceptionTest9()
-        {
-            try
+            
+        
+
+            static void Export()
+
             {
-                int x = 5;
-                int y = x / 0;
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Исключение: {ex.Message}");
-                Console.WriteLine($"Метод: {ex.TargetSite}");
-                Console.WriteLine($"Трассировка стека: {ex.StackTrace}");
+                using (FileStream fs = new FileStream("Students.xml", FileMode.OpenOrCreate))
+                {
+                    XmlSerializer formatter = new XmlSerializer(typeof(Student[]));
+                    Student[] newpeople = (Student[])formatter.Deserialize(fs);
+
+                    var Serializer = new DataContractJsonSerializer(typeof(Student[]));
+
+                    var ms = new MemoryStream();
+
+                    Serializer.WriteObject(ms, newpeople);
+
+                    ms.Position = 0;
+
+
+                    Console.WriteLine(Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length));
+                }
+                Console.ReadLine();
             }
 
-            Console.Read();
-        }
-        static void ExceptionTest10()
-        {
-            try
-            {
-                int[] numbers = new int[4];
-                numbers[7] = 9;     // IndexOutOfRangeException
 
-                int x = 5;
-                int y = x / 0;  // DivideByZeroException
-                Console.WriteLine($"Результат: {y}");
-            }
-            catch (DivideByZeroException)
+            static void Main(string[] args)
             {
-                Console.WriteLine("Возникло исключение DivideByZeroException");
-            }
-            catch (IndexOutOfRangeException ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                //Import();
 
-            Console.Read();
-        }
-        static void ExceptionTest11()
-        {
-            try
-            {
-                object obj = "you";
-                int num = (int)obj;     // InvalidCastException
-                Console.WriteLine($"Результат: {num}");
-            }
-            catch (DivideByZeroException)
-            {
-                Console.WriteLine("Возникло исключение DivideByZeroException");
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Возникло исключение IndexOutOfRangeException");
-            }
+                Export();
 
-            Console.Read();
-        }
-        static void ExceptionTest12()
-        {
-            try
-            {
-                object obj = "you";
-                int num = (int)obj;     // InvalidCastException
-                Console.WriteLine($"Результат: {num}");
             }
-            catch (DivideByZeroException)
-            {
-                Console.WriteLine("Возникло исключение DivideByZeroException");
-            }
-            catch (IndexOutOfRangeException)
-            {
-                Console.WriteLine("Возникло исключение IndexOutOfRangeException");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Исключение: {ex.Message}");
-            }
-            Console.Read();
-
-        }
-        static void ExceptionTest13()
-        {
-            int? a = 42;
-            if (a is int valueOfA)
-            {
-                Console.WriteLine($"a is {valueOfA}");
-            }
-            else
-            {
-                Console.WriteLine("a does not have a value");
-            }
-        }
-        static void ExceptionTest14()
-        {
-            int? b = null;
-            if (b.HasValue)
-            {
-                Console.WriteLine($"b is {b.Value}");
-            }
-            else
-            {
-                Console.WriteLine("b does not have a value");
-            }
-        }
-        static void ExceptionTest15()
-        {
-            int? c = 7;
-            if (c != null)
-            {
-                Console.WriteLine($"c is {c.Value}");
-            }
-            else
-            {
-                Console.WriteLine("c does not have a value");
-            }
-        }
-
-        static void ExceptionTest16()
-        {
-            int? a = 28;
-            int b = a ?? -1;
-            Console.WriteLine($"b is {b}");  // output: b is 28
-
-            int? c = null;
-            int d = c ?? -1;
-            Console.WriteLine($"d is {d}");  // output: d is -1
-        }
-        static void ExceptionTest17()
-        {
-            int? a = 10;
-            Console.WriteLine($"{a} >= null is {a >= null}");
-            Console.WriteLine($"{a} < null is {a < null}");
-            Console.WriteLine($"{a} == null is {a == null}");
-            // Output:
-            // 10 >= null is False
-            // 10 < null is False
-            // 10 == null is False
-
-            int? b = null;
-            int? c = null;
-            Console.WriteLine($"null >= null is {b >= c}");
-            Console.WriteLine($"null == null is {b == c}");
-            // Output:
-            // null >= null is False
-            // null == null is True
-        }
-        static void ExceptionTest18()
-        {
-            int a = 41;
-            object aBoxed = a;
-            int? aNullable = (int?)aBoxed;
-            Console.WriteLine($"Value of aNullable: {aNullable}");
-
-            object aNullableBoxed = aNullable;
-            if (aNullableBoxed is int valueOfA)
-            {
-                Console.WriteLine($"aNullableBoxed is boxed int: {valueOfA}");
-            }
-            // Output:
-            // Value of aNullable: 41
-            // aNullableBoxed is boxed int: 41
-        }
-        static void ExceptionTest19()
-        {
-            object z = 200;
-            object t = z ?? 44;
-            Console.WriteLine(t);
         }
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
