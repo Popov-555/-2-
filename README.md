@@ -10,7 +10,7 @@
   <tr>
     <td style="text-align: center; border: none; height: 15em;">
     <h2 style="font-size:3em;">Отчет</h2>
-      <h3>по лабораторной работе<br><br> по дисциплине "Основы алгоритмизации и программирования"<br><br> Тема:<b>"Многопоточность."<b> </h3></td>
+      <h3>по лабораторной работе<br><br> по дисциплине "Основы алгоритмизации и программирования"<br><br> Тема:<b>"ООП. Основы."<b> </h3></td>
   </tr>
   <tr>
     <br><br><td style="text-align: right; border: none; height: 20em;">
