@@ -27,65 +27,44 @@ namespace oap_labs
         [DataMember]
         public string Marka { get; set; }
         [DataMember]
-        public DateTime NachaloExp { get; set; }
+        public string NachaloExp { get; set; }
         [DataMember]
         public int Probeg { get; set; }
-        public Bus(string familiyaIic, int numberbus, int marshrut, DateTime nachaloexp, int probeg, string marka)
+             
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+
         {
-            FamiliyaIic = familiyaIic;
-            NumberBus = numberbus;
-            Marshrut = marshrut;
-            Marka = marka;
-            NachaloExp = nachaloexp;
-            Probeg = probeg;
+            var Serializer = new DataContractJsonSerializer(typeof(Bus[]));
 
-        }
-
-        class Program
-        {
-            static void Import()
-
+            using (var stream = new StreamReader(@"./Date.json"))
             {
-                /*using (FileStream fs = new FileStream("Date.json", FileMode.OpenOrCreate))
-                {
-                    XmlSerializer formatter = new XmlSerializer(typeof(Date[]));
-                    Date[] newpeople = (Date[])formatter.Deserialize(fs);
-
-                    var Serializer = new DataContractJsonSerializer(typeof(Date[]));
-
-                    var ms = new MemoryStream();
-
-                    Serializer.WriteObject(ms, newpeople);
-
-                    ms.Position = 0;
+                var BusList = (Bus[])Serializer.ReadObject(stream.BaseStream);
 
 
-                    Console.WriteLine(Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length));
-                }
-                Console.ReadLine();
+                var FinterList = BusList.Where(b => b.Marshrut == 1);
+                foreach (var curBus in BusList)
+                    Console.WriteLine($"Bus {curBus.NumberBus}");
+
+                FinterList = BusList.Where(b => (DateTime.Now.Year - Convert.ToInt32(b.NachaloExp)) > 10);
+                foreach (var curBus in BusList)
+                    Console.WriteLine($"Bus {curBus.NachaloExp}");
+
             }
 
 
-            static void Main(string[]args)
-            {
-                Import();
+            Console.ReadLine();
 
-                //Export();
-
-          
-                */
-
-                using FileStream openStream = File.OpenRead(fileName);
-                weatherForecast = await JsonSerializer.DeserializeAsync<WeatherForecast>(openStream);
-
-            }
+           
 
         }
     }
-
-   
-
 }
+
+    
 
 
     

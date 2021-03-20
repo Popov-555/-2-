@@ -1,0 +1,86 @@
+[
+    {
+        "FamiliyaIic" : "Иванов И.И.",
+        "NumberBus" : "7",
+        "Marshrut" : "1",
+        "Marka" : "Pop",
+        "NachaloExp" : "2002",
+        "Probeg" : "220200"
+        },
+
+        {
+            "FamiliyaIic" : "Сидоров П.П",
+            "NumberBus" : "8",
+            "Marshrut" : "25",
+            "Marka" : "mart",
+            "NachaloExp" : "2003",
+            "Probeg" : "203020"
+        },
+        {
+            "FamiliyaIic" : "Петров С.С",
+            "NumberBus" : "20",
+            "Marshrut" : "23",
+            "Marka" : "martp",
+            "NachaloExp" : "2007",
+            "Probeg" : "203020"
+        },
+        {
+            "FamiliyaIic" : "Свинцов А.А",
+            "NumberBus" : "10",
+            "Marshrut" : "236",
+            "Marka" : "martpip",
+            "NachaloExp" : "2008",
+            "Probeg" : "2033050"  
+        },
+        {
+            "FamiliyaIic" : "Горячих В,В",
+            "NumberBus" : "130",
+            "Marshrut" : "1",
+            "Marka" : "user",
+            "NachaloExp" : "2006",
+            "Probeg" : "21020"  
+        },
+        {
+            "FamiliyaIic" : "Колесников В.В",
+            "NumberBus" : "2",
+            "Marshrut" : "3",
+            "Marka" : "user25",
+            "NachaloExp" : "2002",
+            "Probeg" : "2102030" 
+        },
+        {
+            "FamiliyaIic" : "Плотников П.П",
+            "NumberBus" : "60",
+            "Marshrut" : "60",
+            "Marka" : "user2530",
+            "NachaloExp" : "2009",
+            "Probeg" : "210301" 
+        },
+        {
+            "FamiliyaIic" : "Саранцев П.П",
+            "NumberBus" : "10",
+            "Marshrut" : "3",
+            "Marka" : "us",
+            "NachaloExp" : "2008",
+            "Probeg" : "2103015"   
+        },
+        {
+            "FamiliyaIic" : "Смирнов П.П",
+            "NumberBus" : "9",
+            "Marshrut" : "7",
+            "Marka" : "use",
+            "NachaloExp" : "2004",
+            "Probeg" : "21030165"  
+        },
+        {
+            
+            "FamiliyaIic" : "Болотников И.П",
+            "NumberBus" : "21",
+            "Marshrut" : "630",
+            "Marka" : "user253",
+            "NachaloExp" : "2021",
+            "Probeg" : "20204"  
+        }
+        
+
+]

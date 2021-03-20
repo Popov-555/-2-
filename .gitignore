@@ -1,3 +1,5 @@
-*/bin/
+Лаб раб 2 Попов ИЛья/bin/Release/
+Лаб раб 2 Попов ИЛья/bin/Debug/*
+!Лаб раб 2 Попов ИЛья/bin/Debug/Date.json
 */obj/
 .vs
