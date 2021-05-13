@@ -53,6 +53,7 @@ Title="MainWindow" Height="450" Width="800">
     </Grid>
 </Window>
 ```
-[Снимок1.PNG](C:\Users\User\Desktop\Новая папка (4) ) в JSON-строку)
+![Снимок1](https://user-images.githubusercontent.com/78635331/118114352-21787f00-b3f0-11eb-979a-382d0a9aa8a9.PNG)
+
 # Вывод
 Научился работать с GRID
